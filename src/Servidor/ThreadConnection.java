@@ -3,6 +3,7 @@ package Servidor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ThreadConnection implements Runnable{
@@ -25,7 +26,7 @@ public class ThreadConnection implements Runnable{
 				if (texto == null) {
 					break;
 				}
-				Thread dnaThread = new Thread(new atividadeDNAThread(texto));
+				Thread dnaThread = new Thread(new atividadeDNAThread(texto, conexao));
 				dnaThread.start();
 			}while(!"sair".equals(entrada.toString()));
 			
@@ -35,7 +36,6 @@ public class ThreadConnection implements Runnable{
 			try {
 				conexao.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

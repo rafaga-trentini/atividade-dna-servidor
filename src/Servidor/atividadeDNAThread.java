@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +14,11 @@ import java.util.Scanner;
 public class atividadeDNAThread implements Runnable{
 	
 	String str;
+	Socket conexao;
 	
-	public atividadeDNAThread(String str) {
+	public atividadeDNAThread(String str, Socket conexao) {
 		this.str = str;
+		this.conexao = conexao;
 	}
 	
 	@Override
@@ -39,6 +43,13 @@ public class atividadeDNAThread implements Runnable{
 	   String resultadoDnaComplementar = "";
 	   resultadoDnaComplementar = String.join(resultadoDnaComplementar, dnaComplementar);
 	   this.str = resultadoDnaComplementar;
+		try {
+			ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
+			saida.writeObject(this.str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	   Thread.currentThread();
 	   Thread.yield();
 		
