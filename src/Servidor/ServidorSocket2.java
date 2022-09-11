@@ -8,17 +8,16 @@ import java.net.Socket;
 
 public class ServidorSocket2 {
 	
+	private static ServerSocket servidor = null;
+	
+	private static int porta = 7000;
+	
 	public static void main (String[] args) throws IOException {
-		
-		ServerSocket servidor = null;
-		
-		Socket conexao = null;
-		
+		servidor = new ServerSocket(porta);
 		try {
 			while (true) {
-				servidor = new ServerSocket(7000);
-				Thread minhaThread = new Thread(new ThreadConnection(servidor.accept()));
-				minhaThread.start();
+				Socket socket = servidor.accept();
+				 new Thread(new ThreadConnection(socket)).start();
 			}
 		} catch (IOException e) {
 			System.out.println("Algo errado aconteceu");

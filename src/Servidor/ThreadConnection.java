@@ -8,9 +8,10 @@ import java.net.Socket;
 
 public class ThreadConnection implements Runnable{
 	
-	Socket conexao;
 	BufferedReader entrada = null;
 	
+	private final Socket conexao;
+
 	public ThreadConnection(Socket conexao) {
 		this.conexao = conexao;
 	}
@@ -18,6 +19,7 @@ public class ThreadConnection implements Runnable{
 
 	@Override
 	public void run() {
+		
 		try {
 			
 			entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
