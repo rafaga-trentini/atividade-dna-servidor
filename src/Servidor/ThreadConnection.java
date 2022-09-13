@@ -35,22 +35,28 @@ public class ThreadConnection implements Runnable{
 						String delayedTime = entrada.readLine();
 						Sleep sleep = new Sleep(delayedTime, conexao);
 						sleep.execute();
+						break;
 					}
 					case "wait": {
 						saida.writeObject("Informe o nome");
 						String nome = entrada.readLine();
 						Wait wait = new Wait(nome);
+						wait.execute();
+						break;
 					}
 					case "notify": {
 						saida.writeObject("Informe o nome");
 						String nome = entrada.readLine();
 						Notify notify = new Notify(nome, conexao);
+						notify.execute();
+						break;
 					}
 					case "new": {
 						saida.writeObject("Informe o dna");
 						String dna = entrada.readLine();
 						New newClasse = new New(dna, conexao);
 						newClasse.execute();
+						break;
 					}
 					default:
 						saida.writeObject("Informe um dos seguintes comandos: -sleep\n-wait\n-notify\n-new\n-sair");
