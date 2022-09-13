@@ -29,7 +29,7 @@ public class ClienteSocket2 {
 				texto = entrada.nextLine();
 				saida.println(texto);
 				ObjectInputStream dna = new ObjectInputStream(cliente.getInputStream());
-				System.out.println("DNA Complementar: " + dna.readObject());
+				System.out.println(dna.readObject());
 			}while(!"sair".equals(texto));
 		} catch (IOException e) {
 			System.out.println("Algo errado aconteceu");

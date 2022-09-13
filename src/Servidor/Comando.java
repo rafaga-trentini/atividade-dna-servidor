@@ -1,5 +1,7 @@
 package Servidor;
 
+import java.io.IOException;
+
 public class Comando {
     
     public IComando comando;
@@ -8,7 +10,7 @@ public class Comando {
         this.comando = comando;
     }
 
-    public void execute() {
+    public void execute() throws IOException {
         this.comando.execute();
     }
 }

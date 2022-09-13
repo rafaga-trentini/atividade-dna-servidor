@@ -6,11 +6,11 @@ public class TesteComando {
  
     public static void main(String[] args) {
 
-        Comando com = new Comando(new Sleep(null));
-        com.execute();
+        Comando com = new Comando(new Sleep(null, null));
+//        com.execute();
 
         Comando com2 = new Comando(new New(null, null));
-        com2.execute();
+//        com2.execute();
 
         //TestExec t = new TestExec();
         //TestExec.execute("System.out.println('hello');");
