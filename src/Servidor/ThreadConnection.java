@@ -44,7 +44,7 @@ public class ThreadConnection implements Runnable{
 					case "notify": {
 						saida.writeObject("Informe o nome");
 						String nome = entrada.readLine();
-						Notify notify = new Notify(nome);
+						Notify notify = new Notify(nome, conexao);
 					}
 					case "new": {
 						saida.writeObject("Informe o dna");
