@@ -11,6 +11,7 @@ public class ThreadConnection implements Runnable{
 	BufferedReader entrada = null;
 	ObjectOutputStream saida = null;
 	private Socket conexao;
+	private Comando comandos = new Comando();
 
 	public ThreadConnection(Socket conexao) {
 		this.conexao = conexao;
@@ -23,57 +24,23 @@ public class ThreadConnection implements Runnable{
 		try {
 			saida = new ObjectOutputStream(conexao.getOutputStream());
 			entrada = new BufferedReader(new InputStreamReader(this.conexao.getInputStream()));
-			do {
-				String texto = entrada.readLine();
-				if (texto == null) {
-					break;
-				}
-				
-				switch (texto) {
-					case "sleep": {
-						saida.writeObject("Informe o tempo a ser utilizado no sleep");
-						String delayedTime = entrada.readLine();
-						Sleep sleep = new Sleep(delayedTime, conexao);
-						sleep.execute();
-						break;
-					}
-					case "wait": {
-						saida.writeObject("Informe o nome");
-						String nome = entrada.readLine();
-						Wait wait = new Wait(nome);
-						wait.execute();
-						break;
-					}
-					case "notify": {
-						saida.writeObject("Informe o nome");
-						String nome = entrada.readLine();
-						Notify notify = new Notify(nome, conexao);
-						notify.execute();
-						break;
-					}
-					case "new": {
-						saida.writeObject("Informe o dna");
-						String dna = entrada.readLine();
-						New newClasse = new New(dna, conexao);
-						newClasse.execute();
-						break;
-					}
-					default:
-						saida.writeObject("Informe um dos seguintes comandos: -sleep\n-wait\n-notify\n-new\n-sair");
-				}
-			}while(!"sair".equals(entrada.toString()));
+			String texto = entrada.readLine();
+
+			saida.writeObject("Informe a info");
+			String info = entrada.readLine();
+			
+			IComando comandoInterface = this.comandos.execute(texto, info, conexao);
+			comandoInterface.execute();
+			
+			if (!(comandoInterface instanceof New)) {
+                this.conexao.close();
+                entrada.close();
+                saida.close();
+            }
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexao.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
-		
-		
 		
 	}
 	

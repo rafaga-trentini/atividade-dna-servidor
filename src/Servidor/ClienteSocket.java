@@ -20,21 +20,29 @@ public class ClienteSocket {
 		
 		PrintStream saida= null;
 		
+		ObjectInputStream comando = null;
+		
 		try {
-			cliente = new Socket("127.0.0.1",7000);
 			
-			saida = new PrintStream(cliente.getOutputStream());
-			
-			do {
+			while(true) {
 				texto = entrada.nextLine();
-				saida.println(texto);
-				ObjectInputStream dna = new ObjectInputStream(cliente.getInputStream());
-				System.out.println("DNA Complementar: " + dna.readObject());
-			}while(!"sair".equals(texto));
+				
+				if (texto.equalsIgnoreCase("exit")) {
+	                break;
+	            }
+				cliente = new Socket("127.0.0.1",7000);
+				saida = new PrintStream(cliente.getOutputStream());
+				comando = new ObjectInputStream(cliente.getInputStream());
+				System.out.println(comando.readObject());
+				
+				if (texto.toLowerCase().contains("new")) {
+					comando = new ObjectInputStream(cliente.getInputStream());
+	                String message = (String) comando.readObject();
+	                System.out.println("Message: " + message);
+	            }
+			}
 		} catch (IOException e) {
 			System.out.println("Algo errado aconteceu");
-		} finally {
-			cliente.close();
 		}
 	}
 

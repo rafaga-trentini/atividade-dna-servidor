@@ -20,7 +20,7 @@ public class ServidorSocket2 {
 				 new Thread(new ThreadConnection(socket)).start();
 			}
 		} catch (IOException e) {
-			System.out.println("Algo errado aconteceu");
+			System.out.println("Algo errado aconteceu server");
 		} finally {
 			servidor.close();
 		}
