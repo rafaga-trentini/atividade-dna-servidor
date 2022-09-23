@@ -3,8 +3,10 @@ package Servidor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class ThreadConnection implements Runnable{
 	
@@ -24,12 +26,11 @@ public class ThreadConnection implements Runnable{
 		try {
 			saida = new ObjectOutputStream(conexao.getOutputStream());
 			entrada = new BufferedReader(new InputStreamReader(this.conexao.getInputStream()));
-			String texto = entrada.readLine();
-
-			saida.writeObject("Informe a info");
-			String info = entrada.readLine();
 			
-			IComando comandoInterface = this.comandos.execute(texto, info, conexao);
+			ObjectInputStream ois = new ObjectInputStream(this.conexao.getInputStream());
+            List<String> texto = (List<String>) ois.readObject();
+			
+			IComando comandoInterface = this.comandos.execute(texto.get(0), texto.get(1), conexao);
 			comandoInterface.execute();
 			
 			if (!(comandoInterface instanceof New)) {
@@ -38,7 +39,7 @@ public class ThreadConnection implements Runnable{
                 saida.close();
             }
 			
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
