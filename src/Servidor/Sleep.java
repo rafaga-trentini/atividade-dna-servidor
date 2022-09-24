@@ -21,13 +21,13 @@ public class Sleep implements IComando {
 		try {
 			saida = new ObjectOutputStream(conexao.getOutputStream());
 			int delay = this.getDelayTime();
-	        saida.writeObject("Iniciando execuï¿½ï¿½o do comando Sleep com " + delay);
+	        System.out.println("Iniciando execução do comando Sleep com " + delay);
 	        try {
 				Thread.sleep(this.getDelayTime());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-	        saida.writeObject("Finalizado execuï¿½ï¿½o do comando Sleep com " + delay);
+	        System.out.println("Finalizado execução do comando Sleep com " + delay);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

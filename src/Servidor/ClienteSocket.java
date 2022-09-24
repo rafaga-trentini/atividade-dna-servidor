@@ -70,8 +70,7 @@ public class ClienteSocket {
             
             if (command.get(0).toLowerCase().contains("new")) {
                 ois = new ObjectInputStream(socket.getInputStream());
-                String message = (String) ois.readObject();
-                System.out.println("Message: " + message);
+                System.out.println("Dna complementar: " + ois.readObject());
             }
         }
         assert oos != null;

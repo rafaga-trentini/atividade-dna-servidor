@@ -21,6 +21,8 @@ public class New implements IComando {
     public void execute(){
     	new Thread(() -> {
             String result = dnaCompolementar(dna);
+            Thread.currentThread();
+     	   	Thread.yield();
             try {
                 ObjectOutputStream oos = new ObjectOutputStream(this.socket.getOutputStream());
                 System.out.println(result);
@@ -54,6 +56,7 @@ public class New implements IComando {
  	   String resultadoDnaComplementar = "";
  	   resultadoDnaComplementar = String.join(resultadoDnaComplementar, dnaComplementar);
  	   return resultadoDnaComplementar;
+ 	  
     }
 
 }

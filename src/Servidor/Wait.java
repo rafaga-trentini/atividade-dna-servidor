@@ -15,10 +15,13 @@ public class Wait implements IComando {
 
     @Override
     public void execute() {
-        if(this.storage.containsKey(nome) &&
-                this.storage.get(nome).getState().equals(Thread.State.WAITING)){
-            throw new RuntimeException("Thread [" + nome + "] já está em estado de espera");
-        }
+    	if (this.storage != null) {
+    		if(this.storage.containsKey(nome) &&
+                    this.storage.get(nome).getState().equals(Thread.State.WAITING)){
+                throw new RuntimeException("Thread [" + nome + "] já está em estado de espera");
+            }
+    	}
+        
         var t = new WaitThread(nome);
         addThread(nome, t);
         t.start();
