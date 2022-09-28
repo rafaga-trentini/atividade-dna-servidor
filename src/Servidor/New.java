@@ -24,10 +24,7 @@ public class New implements IComando {
             Thread.currentThread();
      	   	Thread.yield();
             try {
-                ObjectOutputStream oos = new ObjectOutputStream(this.socket.getOutputStream());
                 System.out.println(result);
-                oos.writeObject(result);
-                oos.close();
                 this.socket.close();
             } catch (Exception e) {
                 e.printStackTrace();

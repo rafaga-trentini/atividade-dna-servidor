@@ -28,9 +28,9 @@ public class Notify implements IComando {
 	            synchronized (thread){
 	                thread.notify();
 	            }
-	            saida.writeObject("Resumindo thread "+nome);
+	            System.out.println("Resumindo thread "+nome);
 	        }catch (NullPointerException e){
-	        	saida.writeObject("Thread ["+ nome + "] inexistente.");
+	        	System.out.println("Thread ["+ nome + "] inexistente.");
 	        }
 		} catch (IOException e) {
 			e.printStackTrace();
